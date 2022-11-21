@@ -64,8 +64,8 @@ char *print_int(modifier_t *modif, va_list ap)
 		if (n < 0)
 			buffer[i++] = '-';
 		treat_flags(modif->flags, buffer, &i);
-		res_str = malloc(sizeof(char) * i)
-			i--;
+		res_str = malloc(sizeof(char) * i);
+		i--;
 		while (i >= 0)
 			res_str[j++] = buffer[i--];
 	}
