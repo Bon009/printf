@@ -1,4 +1,4 @@
-.TH man 3 "21st November 2022" "0.20" "_printf man page"
+.TH man 3 "21 November 2022" "0.2" "_printf man page"
 .SH NAME
 .B _printf
 - Formatted output conversion.
@@ -58,5 +58,6 @@ _printf("%s", "my name",);
 .I printf(3)
 .SH BUGS
 No known bugs.
-.SH AUTHOR
-Enyeobi Bon, Nancy Viola Kabiri
+.SH "AUTHOR"
+.SH ""
+Enyeobi Bon, and Nancy Viola Kabiri
