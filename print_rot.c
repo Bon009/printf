@@ -1,4 +1,4 @@
-#include "main.h"
+#include "holberton.h"
 /**
  * _isalpha - checks if character is alpha or not
  * @c: character to check
@@ -14,7 +14,7 @@ int _isalpha(char c)
 /**
  * _strlen - lenght of string
  * @s:char
- * Return: int
+ * Return:int
  */
 
 int _strlen(char *s)
@@ -30,12 +30,12 @@ int _strlen(char *s)
 /**
  * print_rot - encodes a string into rot13
  * @ap: arg to display handle %R
- * @modif:struct modifier containig modifier fields
+* @modif:struct modifier containig modifier fields
  * Return: count of string
  */
 char *print_rot(modifier_t *modif, va_list ap)
 {
-	int index, length;
+int index, length;
 	unsigned char temp_c;
 	char is_upper;
 	char *str, *ret;
@@ -71,4 +71,4 @@ char *print_rot(modifier_t *modif, va_list ap)
 	}
 	ret[length] = '\0';
 	return (ret);
-}
+	}
