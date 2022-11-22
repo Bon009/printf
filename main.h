@@ -1,71 +1,76 @@
-#ifndef _FUNCTION_PRINTF_H_
-#define _FUNCTION_PRINTF_H_
-#include <stdarg.h>
+#ifndef MAIN_H
+#define MAIN_H
+
 #include <stdlib.h>
-#include <stddef.h>
-
-#define BUFFER_SIZE 1024
+#include <stdarg.h>
 
 /**
- * struct modifier - mofifier fields collection
- * @flags: flags field composed of ['0', ' ', '#', '+', '-']
- * @width: width field, positive number
- * @precision: precision field positive number not including '.'
- * or -1 for '*'
- * @length: length field string composed of ['h', 'l']
- * @specifier: specifier character can one of
- * ['c', 's', '%', 'd', 'i', 'b', 'u', 'o', 'x', 'X', 'S', 'p', 'r', 'R']
- *
+ * struct flags - struct containing flags to "turn on"
+ * when a flag specifier is passed to _printf()
+ * @plus: flag for the '+' character
+ * @space: flag for the ' ' character
+ * @hash: flag for the '#' character
  */
-typedef struct modifier
+typedef struct flags
 {
-	char *flags;
-	int width;
-	int precision;
-	char *length;
-	char specifier;
-} modifier_t;
+	int plus;
+	int space;
+	int hash;
+} flags_t;
 
-void *_realloc(void *ptr, unsigned int, unsigned int);
-int _putchar(char c);
-char *print_binary(modifier_t *, va_list);
-char *print_unsigned_int(modifier_t *, va_list);
-char *print_octal(modifier_t *, va_list);
-char *print_hex(modifier_t *, va_list);
-char *print_char(modifier_t *, va_list ap);
-char *print_int(modifier_t *, va_list ap);
-char *print_string(modifier_t *modif, va_list ap);
-char *print_rev(modifier_t *, va_list ap);
-char *print_big_s(modifier_t *, va_list);
-char *print_pointer(modifier_t *, va_list);
-char *rot13(char *s);
-int _strlen(char *s);
-char *print_rot(modifier_t *, va_list ap);
+/**
+ * struct printHandler - struct to choose the right function depending
+ * on the format specifier passed to _printf()
+ * @c: format specifier
+ * @f: pointer to the correct printing function
+ */
+typedef struct printHandler
+{
+	char c;
+	int (*f)(va_list ap, flags_t *f);
+} ph;
 
-void free_modifier(modifier_t *);
-char *get_flags(const char *, unsigned int *);
-int get_width(const char *, unsigned int *);
-int get_precision(const char *, unsigned int *);
-char *get_length(const char *, unsigned int *);
-char get_specifier(const char *, unsigned int *);
-modifier_t *get_modifier(const char *, unsigned int *);
-char *treat_format(const char *, unsigned int *, va_list);
+/* print_nums */
+int print_int(va_list l, flags_t *f);
+void print_number(int n);
+int print_unsigned(va_list l, flags_t *f);
+int count_digit(int i);
+
+/* print_bases */
+int print_hex(va_list l, flags_t *f);
+int print_hex_big(va_list l, flags_t *f);
+int print_binary(va_list l, flags_t *f);
+int print_octal(va_list l, flags_t *f);
+
+/* converter */
+char *convert(unsigned long int num, int base, int lowercase);
+
+/* _printf */
 int _printf(const char *format, ...);
-char *_strcpy(char *dest, char *src);
-void array_rev(char *arr, int len);
-int int_len(int num);
-char *ito(int n);
-char *reverse(char *s);
 
-/**
- * struct print - multiple choice print
- * @f: char Type of print
- * @func: funct
- */
-typedef struct print
-{
-	char f;
-	char *(*func)(modifier_t *, va_list);
-} t_print;
+/* get_print */
+int (*get_print(char s))(va_list, flags_t *);
+
+/* get_flag */
+int get_flag(char s, flags_t *f);
+
+/* print_alpha */
+int print_string(va_list l, flags_t *f);
+int print_char(va_list l, flags_t *f);
+
+/* write_funcs */
+int _putchar(char c);
+int _puts(char *str);
+
+/* print_custom */
+int print_rot13(va_list l, flags_t *f);
+int print_rev(va_list l, flags_t *f);
+int print_bigS(va_list l, flags_t *f);
+
+/* print_address */
+int print_address(va_list l, flags_t *f);
+
+/* print_percent */
+int print_percent(va_list l, flags_t *f);
 
 #endif
