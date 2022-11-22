@@ -122,6 +122,7 @@ int get_precision(const char *s, unsigned int *pos)
  * @s: string to extract from
  * @pos: position to start extractong from (will be modified to mark
  * end of search position)
+ *
  * Return: string of 'l's and 'h's or NULL if not found
  */
 char *get_length(const char *s, unsigned int *pos)
